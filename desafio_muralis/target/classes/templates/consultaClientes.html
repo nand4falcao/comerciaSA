@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Listagem de clientes cadastrados">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Clientes Cadastrados</title>
+</head>
+<body>
+    <main class="page-wrapper">
+        <section class="container">
+            <div class="page-header">
+                <h1>Clientes cadastrados</h1>
+                <div class="buttons">
+                    <a href="/" class="btn">Voltar ao menu</a>
+                    <a href="/cadastroClientes" class="btn">Novo cliente</a>
+                </div>
+            </div>
+
+            <form action="/consultaClientes" method="get" class="form consulta-busca">
+                <div class="field-grid consulta-busca-grid">
+                    <div class="field-group">
+                        <label for="busca">Buscar por nome ou CPF</label>
+                        <input id="busca" type="text" name="busca" placeholder="Digite parte do nome ou o CPF"
+                               th:value="${busca}">
+                    </div>
+                    <div class="field-group consulta-busca-actions">
+                        <button type="submit">Consultar</button>
+                        <a th:if="${buscou}" href="/consultaClientes" class="btn btn-secondary">Limpar</a>
+                    </div>
+                </div>
+            </form>
+
+            <table th:if="${not #lists.isEmpty(clientes)}">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente : ${clientes}"
+                        class="cliente-row"
+                        th:attr="data-cliente-id=${cliente.id},data-cliente-nome=${cliente.nome}"
+                        title="Clique para ver os contatos">
+                        <td th:text="${cliente.id}">1</td>
+                        <td th:text="${cliente.nome}">Nome completo</td>
+                        <td th:text="${cliente.cpf}">000.000.000-00</td>
+                        <td th:text="${cliente.dataNasc}">2000-01-01</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="empty-result" th:if="${buscou and #lists.isEmpty(clientes)}">Cliente não encontrado</p>
+        </section>
+    </main>
+
+    <div id="contatos-overlay" class="overlay"></div>
+    <div id="contatos-modal" class="modal-box modal-contatos" role="dialog" aria-modal="true" aria-labelledby="contatos-modal-titulo">
+        <h2 id="contatos-modal-titulo">Contatos</h2>
+        <div id="contatos-modal-corpo"></div>
+
+        <div id="contatos-modal-edit" class="contatos-edit-panel" hidden>
+            <h3 class="contatos-edit-titulo">Editar contato</h3>
+            <div class="field-group" id="contato-edit-select-wrap" hidden>
+                <label for="contato-edit-select">Selecione o contato</label>
+                <select id="contato-edit-select"></select>
+            </div>
+            <div class="field-group">
+                <label for="contato-edit-tipo">Tipo</label>
+                <select id="contato-edit-tipo">
+                    <option value="Telefone">Telefone</option>
+                    <option value="Email">Email</option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label for="contato-edit-valor">Valor</label>
+                <input type="text" id="contato-edit-valor" autocomplete="off">
+            </div>
+            <div class="field-group">
+                <label for="contato-edit-obs">Observações</label>
+                <input type="text" id="contato-edit-obs" autocomplete="off">
+            </div>
+            <p id="contato-edit-msg" class="contatos-edit-msg" hidden></p>
+            <div class="contatos-edit-botoes">
+                <button type="button" id="contato-edit-salvar">Salvar alterações</button>
+                <button type="button" id="contato-edit-cancelar" class="btn-modal-ghost">Cancelar</button>
+            </div>
+        </div>
+
+        <div class="modal-contatos-acoes">
+            <button type="button" id="btn-editar-contato" class="btn-modal-secundario">Editar contato</button>
+            <button type="button" id="btn-excluir-cliente" class="btn-modal-perigo">Excluir cliente</button>
+        </div>
+        <button type="button" class="close-btn" id="contatos-modal-fechar">Fechar</button>
+    </div>
+
+    <script src="/js/consultaClientes.js" defer></script>
+</body>
+</html>

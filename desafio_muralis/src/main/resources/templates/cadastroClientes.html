@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Software para cadastro de clientes do comércio S.A">
+    <meta name="keyword" content="comércio S.A, clientes, Muralis, estágio">
+    <meta name="author" content="Maria Fernanda Falcão de Lima">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Cadastro de Cliente</title>
+</head>
+<body>
+    <main class="page-wrapper">
+        <section class="container">
+            <div class="page-header">
+                <h1>Cadastro de Cliente</h1>
+                <a href="/" class="btn">Voltar</a>
+            </div>
+
+            <form action="/clientes/salvar" method="post" class="form">
+                <div class="field-grid">
+                    <div class="field-group">
+                        <label for="nome">Nome Completo</label>
+                        <input id="nome" type="text" name="nome" placeholder="Digite o nome completo" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="cpf">CPF</label>
+                        <input id="cpf" type="text" name="cpf" placeholder="Digite o CPF do cliente" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="dataNasc">Data de Nascimento</label>
+                        <input id="dataNasc" type="date" name="dataNasc" required>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="endereco">Endereço</label>
+                    <input id="endereco" type="text" name="endereco" placeholder="Digite o endereço" required>
+                </div>
+
+                <div class="field-grid">
+                    <div class="field-group">
+                        <label for="cidade">Cidade</label>
+                        <input id="cidade" type="text" name="cidade" placeholder="Digite a cidade" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="estado">Estado</label>
+                        <input id="estado" type="text" name="estado" placeholder="Digite o estado" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="cep">CEP</label>
+                        <input id="cep" type="text" name="cep" placeholder="Digite o CEP" required>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="tipoContato">Tipo de contato</label>
+                    <select id="tipoContato" name="tipoContato" required>
+                        <option value="" hidden>Tipo</option>
+                        <option value="Telefone">Telefone</option>
+                        <option value="Email">Email</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label for="valorContato">Valor do contato</label>
+                    <input id="valorContato" type="text" name="valorContato" placeholder="Telefone ou email" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="observacoes">Observações</label>
+                    <input id="observacoes" type="text" name="observacoes" placeholder="Digite aqui se há alguma observação importante">
+                </div>
+
+                <div class="button-row">
+                    <button type="submit">Salvar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <div class="overlay"></div>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <h2 id="modal-title">Salvo com sucesso!</h2>
+        <p>O cliente será registrado e você será redirecionado em breve.</p>
+        <button class="close-btn" type="button">Fechar</button>
+    </div>
+
+    <script src="/js/script.js" defer></script>
+</body>
+</html>
